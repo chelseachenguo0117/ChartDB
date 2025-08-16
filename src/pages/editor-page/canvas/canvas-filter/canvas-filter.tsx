@@ -49,6 +49,7 @@ export const CanvasFilter: React.FC<CanvasFilterProps> = ({ onClose }) => {
     const [isFilterVisible, setIsFilterVisible] = useState(false);
     const [groupingMode, setGroupingMode] = useState<GroupingMode>('schema');
     const searchInputRef = useRef<HTMLInputElement>(null);
+    const [matchedInfo, setMatchedInfo] = useState<Record<string, string>>({});
 
     // Extract only the properties needed for tree data
     const relevantTableData = useMemo<RelevantTableData[]>(
@@ -58,6 +59,8 @@ export const CanvasFilter: React.FC<CanvasFilterProps> = ({ onClose }) => {
                 name: table.name,
                 schema: table.schema,
                 parentAreaId: table.parentAreaId,
+                comments: table.comments,
+                fields: table.fields,
             })),
         [tables]
     );
@@ -105,15 +108,68 @@ export const CanvasFilter: React.FC<CanvasFilterProps> = ({ onClose }) => {
     // Filter tree data based on search query
     const filteredTreeData: TreeNode<NodeType, NodeContext>[] = useMemo(() => {
         if (!searchQuery.trim()) {
+            setMatchedInfo({});
             return treeData;
         }
 
         const query = searchQuery.toLowerCase();
         const result: TreeNode<NodeType, NodeContext>[] = [];
+        const newMatchedInfo: Record<string, string> = {};
 
         treeData.forEach((schemaNode) => {
-            const filteredChildren = schemaNode.children?.filter((tableNode) =>
-                tableNode.name.toLowerCase().includes(query)
+            const filteredChildren = schemaNode.children?.filter(
+                (tableNode) => {
+                    // Find the corresponding table data
+                    const tableData = relevantTableData.find(
+                        (t) => t.id === tableNode.id
+                    );
+
+                    // Check if query matches table name
+                    if (tableNode.name.toLowerCase().includes(query)) {
+                        newMatchedInfo[tableNode.id] = t(
+                            'canvas_filter.match_table_name',
+                            'Matched in table name'
+                        );
+                        return true;
+                    }
+
+                    // Check if query matches table comments
+                    if (tableData?.comments?.toLowerCase().includes(query)) {
+                        newMatchedInfo[tableNode.id] = t(
+                            'canvas_filter.match_table_comment',
+                            'Matched in table comment'
+                        );
+                        return true;
+                    }
+
+                    // Check if query matches any field names
+                    const matchedFieldName = tableData?.fields?.find((field) =>
+                        field.name.toLowerCase().includes(query)
+                    );
+                    if (matchedFieldName) {
+                        newMatchedInfo[tableNode.id] = t(
+                            'canvas_filter.match_field_name',
+                            'Matched in field: {{field}}',
+                            { field: matchedFieldName.name }
+                        );
+                        return true;
+                    }
+
+                    // Check if query matches any field comments
+                    const matchedFieldComment = tableData?.fields?.find(
+                        (field) => field.comments?.toLowerCase().includes(query)
+                    );
+                    if (matchedFieldComment) {
+                        newMatchedInfo[tableNode.id] = t(
+                            'canvas_filter.match_field_comment',
+                            'Matched in field comment: {{field}}',
+                            { field: matchedFieldComment.name }
+                        );
+                        return true;
+                    }
+
+                    return false;
+                }
             );
 
             if (filteredChildren && filteredChildren.length > 0) {
@@ -124,8 +180,9 @@ export const CanvasFilter: React.FC<CanvasFilterProps> = ({ onClose }) => {
             }
         });
 
+        setMatchedInfo(newMatchedInfo);
         return result;
-    }, [treeData, searchQuery]);
+    }, [treeData, searchQuery, relevantTableData, t]);
 
     // Render actions with proper memoization for performance
     const renderActions = useCallback(
@@ -282,6 +339,16 @@ export const CanvasFilter: React.FC<CanvasFilterProps> = ({ onClose }) => {
                     data={filteredTreeData}
                     onNodeClick={handleNodeClick}
                     renderActionsComponent={renderActions}
+                    renderHoverComponent={(node) => {
+                        if (node.type === 'table' && matchedInfo[node.id]) {
+                            return (
+                                <span className="ml-2 text-xs text-muted-foreground">
+                                    {matchedInfo[node.id]}
+                                </span>
+                            );
+                        }
+                        return null;
+                    }}
                     defaultFolderIcon={groupingMode === 'area' ? Box : Database}
                     defaultIcon={Table}
                     expanded={expanded}

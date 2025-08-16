@@ -24,4 +24,10 @@ export type RelevantTableData = {
     name: string;
     schema?: string | null;
     parentAreaId?: string | null;
+    comments?: string | null;
+    fields?: Array<{
+        id: string;
+        name: string;
+        comments?: string | null;
+    }>;
 };

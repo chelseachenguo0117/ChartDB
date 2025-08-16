@@ -285,6 +285,17 @@ export const ne: LanguageTranslation = {
             filter: 'Filter Tables',
         },
 
+        canvas_filter: {
+            title: 'Filter Tables',
+            search_placeholder: 'Search tables...',
+            group_by_schema: 'Group by Schema',
+            group_by_area: 'Group by Area',
+            match_table_name: 'Matched in table name',
+            match_table_comment: 'Matched in table comment',
+            match_field_name: 'Matched in field: {{field}}',
+            match_field_comment: 'Matched in field comment: {{field}}',
+        },
+
         new_diagram_dialog: {
             database_selection: {
                 title: 'तपाईंको डाटाबेस के हो?',
