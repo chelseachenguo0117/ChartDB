@@ -14,7 +14,6 @@ import { BookOpen, Group, FileType, Plus, FolderOpen } from 'lucide-react';
 import { SquareStack, Table, Workflow } from 'lucide-react';
 import { useLayout } from '@/hooks/use-layout';
 import { useTranslation } from 'react-i18next';
-import { DiscordLogoIcon, TwitterLogoIcon } from '@radix-ui/react-icons';
 import { useBreakpoint } from '@/hooks/use-breakpoint';
 import ChartDBLogo from '@/assets/logo-light.png';
 import ChartDBDarkLogo from '@/assets/logo-dark.png';
@@ -133,23 +132,6 @@ export const EditorSidebar: React.FC<EditorSidebarProps> = () => {
 
     const footerItems: SidebarItem[] = useMemo(
         () => [
-            {
-                title: 'Discord',
-                icon: DiscordLogoIcon,
-                onClick: () =>
-                    window.open('https://discord.gg/QeFwyWSKwC', '_blank'),
-                active: false,
-            },
-            {
-                title: 'Twitter',
-                icon: TwitterLogoIcon,
-                onClick: () =>
-                    window.open(
-                        'https://x.com/intent/follow?screen_name=jonathanfishner',
-                        '_blank'
-                    ),
-                active: false,
-            },
             {
                 title: 'Docs',
                 icon: BookOpen,

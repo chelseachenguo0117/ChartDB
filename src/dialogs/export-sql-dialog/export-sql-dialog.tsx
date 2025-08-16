@@ -182,24 +182,11 @@ export const ExportSQLDialog: React.FC<ExportSQLDialogProps> = ({
                             ]}
                         />
                     </Label>
-                    <div>
-                        <Trans
-                            i18nKey="export_sql_dialog.error.description" // optional -> fallbacks to defaults if not provided
-                            components={[
-                                <a
-                                    key={0}
-                                    href="https://github.com/chartdb/chartdb"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="text-pink-600 hover:underline"
-                                />,
-                            ]}
-                        />
-                    </div>
+                    <div>{t('export_sql_dialog.error.description')}</div>
                 </div>
             </div>
         ),
-        []
+        [t]
     );
 
     const renderLoader = useCallback(

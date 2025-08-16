@@ -1,6 +1,6 @@
-import type { en } from './locales/en';
+import type { zh_CN } from './locales/zh_CN';
 
-export type LanguageTranslation = typeof en;
+export type LanguageTranslation = typeof zh_CN;
 
 export type LanguageMetadata = {
     name: string;

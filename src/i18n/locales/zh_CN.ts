@@ -1,6 +1,6 @@
-import type { LanguageMetadata, LanguageTranslation } from '../types';
+import type { LanguageMetadata } from '../types';
 
-export const zh_CN: LanguageTranslation = {
+export const zh_CN = {
     translation: {
         editor_sidebar: {
             new_diagram: '新建',
@@ -52,7 +52,6 @@ export const zh_CN: LanguageTranslation = {
             help: {
                 help: '帮助',
                 docs_website: '文档',
-                join_discord: '在 Discord 上加入我们',
             },
         },
 
@@ -345,10 +344,9 @@ export const zh_CN: LanguageTranslation = {
                 description: '此操作最多需要 30 秒。',
             },
             error: {
-                message:
-                    '生成 SQL 脚本时出错。请稍后再试，或者 <0>联系我们</0>。',
+                message: '生成 SQL 脚本时出错。请稍后再试。',
                 description:
-                    '随时使用您的 OPENAI_TOKEN，在<0>这里</0>查看手册。',
+                    '随时使用您的 OPENAI_TOKEN，查看手册了解更多信息。',
             },
         },
 
@@ -425,12 +423,6 @@ export const zh_CN: LanguageTranslation = {
             cancel: '取消',
         },
 
-        star_us_dialog: {
-            title: '帮助我们改进！',
-            description: '您想在 GitHub 上为我们加注星标吗？只需点击一下即可！',
-            close: '以后再说',
-            confirm: '当然！',
-        },
         export_diagram_dialog: {
             title: '导出关系图',
             description: '选择导出格式：',
@@ -501,7 +493,7 @@ export const zh_CN: LanguageTranslation = {
             change_language: '语言',
         },
     },
-};
+} as const;
 
 export const zh_CNMetadata: LanguageMetadata = {
     name: 'Chinese (Simplified)',

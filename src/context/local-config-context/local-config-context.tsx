@@ -17,12 +17,6 @@ export interface LocalConfigContext {
     showFieldAttributes: boolean;
     setShowFieldAttributes: (showFieldAttributes: boolean) => void;
 
-    githubRepoOpened: boolean;
-    setGithubRepoOpened: (githubRepoOpened: boolean) => void;
-
-    starUsDialogLastOpen: number;
-    setStarUsDialogLastOpen: (lastOpen: number) => void;
-
     showDependenciesOnCanvas: boolean;
     setShowDependenciesOnCanvas: (showDependenciesOnCanvas: boolean) => void;
 
@@ -42,12 +36,6 @@ export const LocalConfigContext = createContext<LocalConfigContext>({
 
     showFieldAttributes: true,
     setShowFieldAttributes: emptyFn,
-
-    githubRepoOpened: false,
-    setGithubRepoOpened: emptyFn,
-
-    starUsDialogLastOpen: 0,
-    setStarUsDialogLastOpen: emptyFn,
 
     showDependenciesOnCanvas: false,
     setShowDependenciesOnCanvas: emptyFn,

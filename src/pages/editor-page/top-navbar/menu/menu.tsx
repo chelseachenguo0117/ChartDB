@@ -106,10 +106,6 @@ export const Menu: React.FC<MenuProps> = () => {
         window.open('https://docs.chartdb.io', '_blank');
     }, []);
 
-    const openJoinDiscord = useCallback(() => {
-        window.open('https://discord.gg/QeFwyWSKwC', '_blank');
-    }, []);
-
     const exportSQL = useCallback(
         (databaseType: DatabaseType) => {
             if (databaseType === DatabaseType.GENERIC) {
@@ -521,9 +517,6 @@ export const Menu: React.FC<MenuProps> = () => {
                 <MenubarContent>
                     <MenubarItem onClick={openChartDBDocs}>
                         {t('menu.help.docs_website')}
-                    </MenubarItem>
-                    <MenubarItem onClick={openJoinDiscord}>
-                        {t('menu.help.join_discord')}
                     </MenubarItem>
                 </MenubarContent>
             </MenubarMenu>
