@@ -51,35 +51,7 @@ export const ImportDBMLDialog: React.FC<ImportDBMLDialogProps> = ({
     withCreateEmptyDiagram,
 }) => {
     const { t } = useTranslation();
-    const initialDBML = `// Use DBML to define your database structure
-// Simple Blog System with Comments Example
-
-Table users {
-  id integer [primary key]
-  name varchar
-  email varchar
-}
-
-Table posts {
-  id integer [primary key]
-  title varchar
-  content text
-  user_id integer
-  created_at timestamp
-}
-
-Table comments {
-  id integer [primary key]
-  content text
-  post_id integer
-  user_id integer
-  created_at timestamp
-}
-
-// Relationships
-Ref: posts.user_id > users.id // Each post belongs to one user
-Ref: comments.post_id > posts.id // Each comment belongs to one post
-Ref: comments.user_id > users.id // Each comment is written by one user`;
+    const initialDBML = ``;
 
     const [dbmlContent, setDBMLContent] = useState<string>(initialDBML);
     const { closeImportDBMLDialog } = useDialog();
