@@ -509,6 +509,16 @@ export const TableNode: React.FC<NodeProps<TableNodeType>> = React.memo(
                             )}
                         </div>
                     </div>
+                    {table.comments && (
+                        <div className="border-t border-slate-200 bg-slate-100 px-3 py-1.5 dark:border-slate-700 dark:bg-slate-800">
+                            <p
+                                className="truncate text-xs text-muted-foreground"
+                                title={table.comments}
+                            >
+                                {table.comments}
+                            </p>
+                        </div>
+                    )}
                     <div
                         className="transition-[max-height] duration-200 ease-in-out"
                         style={{

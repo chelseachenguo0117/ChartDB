@@ -701,6 +701,8 @@ export const calcTableHeight = (table?: DBTable): number => {
     const FIELD_HEIGHT = 32; // h-8 per field
     const TABLE_FOOTER_HEIGHT = 32; // h-8 for show more button
     const TABLE_HEADER_HEIGHT = 42;
+    const COMMENT_HEIGHT = 28; // Height for comment section
+
     // Calculate how many fields are visible
     const fieldCount = table.fields.length;
     let visibleFieldCount = fieldCount;
@@ -714,8 +716,14 @@ export const calcTableHeight = (table?: DBTable): number => {
     const fieldsHeight = visibleFieldCount * FIELD_HEIGHT;
     const showMoreButtonHeight =
         fieldCount > TABLE_MINIMIZED_FIELDS ? TABLE_FOOTER_HEIGHT : 0;
+    const commentHeight = table.comments ? COMMENT_HEIGHT : 0;
 
-    return TABLE_HEADER_HEIGHT + fieldsHeight + showMoreButtonHeight;
+    return (
+        TABLE_HEADER_HEIGHT +
+        commentHeight +
+        fieldsHeight +
+        showMoreButtonHeight
+    );
 };
 
 export const getTableDimensions = (
